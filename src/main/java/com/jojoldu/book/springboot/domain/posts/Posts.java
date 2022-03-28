@@ -1,5 +1,6 @@
 package com.jojoldu.book.springboot.domain.posts;
 
+import com.jojoldu.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ Entity Class에는 절대로 Setter를 선언하지 않음.대신 해당 필드�
 @Getter
 @NoArgsConstructor // 아무것도 없는 통짜 생성자를 생성하는 롬복임
 @Entity // JPA의 어노테이션 기본값으로 클래스의 카멜케이스 이름을 언더스코어 네이밍으로 테이블 이름을 매칭함. SalesManager -> sales_manager table
-public class Posts { //DB Table과 매칭될 클래스 보통 Entity Class라고 함.
+public class Posts extends BaseTimeEntity { //DB Table과 매칭될 클래스 보통 Entity Class라고 함.
 
     @Id // 해당 테이블의 PK 필드를 나타냄
     @GeneratedValue //PK의 생성 규칙을 나타냄, 부트 2.0 에서는 GenerationType.IDENTITY 옵션을 추가해야만 Auto-Increment가 됨.
