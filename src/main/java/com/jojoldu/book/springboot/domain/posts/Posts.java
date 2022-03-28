@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /*
 Entity Class에는 절대로 Setter를 선언하지 않음.대신 해당 필드의 값 변경이 필요하면 명확히 그 목적과 의도를 나타낼 수 있는 메소드를 추가해야함,
@@ -25,7 +22,7 @@ Entity Class에는 절대로 Setter를 선언하지 않음.대신 해당 필드�
 public class Posts extends BaseTimeEntity { //DB Table과 매칭될 클래스 보통 Entity Class라고 함.
 
     @Id // 해당 테이블의 PK 필드를 나타냄
-    @GeneratedValue //PK의 생성 규칙을 나타냄, 부트 2.0 에서는 GenerationType.IDENTITY 옵션을 추가해야만 Auto-Increment가 됨.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //PK의 생성 규칙을 나타냄, 부트 2.0 에서는 GenerationType.IDENTITY 옵션을 추가해야만 Auto-Increment가 됨.
     private Long id; //웬만하면 Long 타입으로 하셈. 필자는 Long 추천함.
 
     @Column(length = 500, nullable = false) // 해당 클래스의 필드는 굳이 선언안해도 모두 테이블의 칼럼이 됨.
