@@ -1,10 +1,14 @@
 package com.jojoldu.book.springboot.web;
 
+import com.jojoldu.book.springboot.config.auth.SecurityConfig;
 import com.jojoldu.book.springboot.web.HelloController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -14,13 +18,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class) // JUnit에 내장된 실행자가 아닌 SpringRunner라는 스프링 실행자를 사용, 스프링부트테스트와 JUnit 사이에 연결자 역할
-@WebMvcTest(controllers = HelloController.class) // Web(Spring MVC)에 집중할 수 있는 어노테이션이고, @Controller와 @controllerAdvice가 내장됨
-public class HelloControllerTest {
 
+@WebMvcTest(controllers = HelloController.class, excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+                classes = SecurityConfig.class)}) // Web(Spring MVC)에 집중할 수 있는 어노테이션이고, @Controller와 @controllerAdvice가 내장됨
+
+public class HelloControllerTest {
     @Autowired //스프링이 관리하는 Bean을 Injection 받음
     private MockMvc mvc; // 스프링 MVC 테스트의 시작점 HTTP GET< POST 등에 대한 API 테스트 가능
 
     @Test
+    @WithMockUser(roles = "USER")
     public void ReturnedHello() throws Exception {
         String hello = "Hello";
 
@@ -31,6 +39,7 @@ public class HelloControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void ReturnedHelloDto() throws Exception {
         String name = "hello";
         int amount = 1000;
