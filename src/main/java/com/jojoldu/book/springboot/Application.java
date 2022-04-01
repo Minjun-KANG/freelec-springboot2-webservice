@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.integration.IntegrationDataSourceScriptDatabaseInitializer;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.sql.init.DatabaseInitializationSettings;
 import org.springframework.context.annotation.Bean;
 
@@ -15,11 +16,12 @@ import org.springframework.context.annotation.Bean;
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+
         //내장 WAS를 실행, 이 내장WAS를 사용하면 Once Write할 수 있음.
     }
 
-    @Bean
+   /* @Bean
     public IntegrationDataSourceScriptDatabaseInitializer customIntegrationDataSourceInitializer(DataSource dataSource) {
         return new IntegrationDataSourceScriptDatabaseInitializer(dataSource, new DatabaseInitializationSettings());
-    }
+    }*/
 }
